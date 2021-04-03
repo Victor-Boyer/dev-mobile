@@ -16,6 +16,8 @@ class TaskListFragment : Fragment() {
         Task(id = 2, title = "Task 2"),
         Task(id = 3, title = "Task 3")
     )
+    private val adapter: TaskListAdapter = TaskListAdapter(taskList)
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,5 +31,7 @@ class TaskListFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = TaskListAdapter(taskList)
+        adapter.onDeleteTask = { task -> }
+
     }
 }

@@ -5,15 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.todovictorb.tasklist.Task
 
 
 class TaskListAdapter(private val taskList: List<Task>) : RecyclerView.Adapter<TaskListAdapter.TaskViewHolder>() {
     inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(taskTitle: String) {
-            itemView.apply { // `apply {}` permet d'éviter de répéter `itemView.*`
-                // TODO: afficher les données et attacher les listeners aux différentes vues de notre [itemView]
+        private val deleteButton = itemView.findViewById<ImageButton>(R.id.DeleteButton)
+        fun bind(task: Task) {
+            deleteButton.setOnClickListener{
+                onDeleteTask?.invoke(task)
             }
         }
     }
@@ -30,6 +32,8 @@ class TaskListAdapter(private val taskList: List<Task>) : RecyclerView.Adapter<T
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         TODO("Not yet implemented")
     }
+
+    var onDeleteTask: ((Task) -> Unit)? = null
 }
 
 class MainActivity : AppCompatActivity() {
